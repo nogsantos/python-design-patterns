@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from src.taxes.budget import Budget
+from src.strategy.budget import Budget
 
 
 class ISS:

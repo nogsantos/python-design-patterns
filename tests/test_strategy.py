@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 from unittest import TestCase
 
-from src.taxes.budget import Budget
-from src.taxes.tax import ICMS, ISS
-from src.taxes.tax_calculator import TaxCalculator
+from src.strategy.budget import Budget
+from src.strategy.tax import ICMS, ISS
+from src.strategy.tax_calculator import TaxCalculator
 
 
-class TestTaxCalculator(TestCase):
+class TestStrategy(TestCase):
 
     def setUp(self):
         self.budget = Budget(500)
