@@ -1,0 +1,34 @@
+# Python CircleCI 2.0 configuration file
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.4
+
+    working_directory: ~/src
+
+    steps:
+      - checkout
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - restore_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+        command: |  # use pipenv to install dependencies
+          sudo pip install pipenv
+          pipenv install
+      - save_cache:
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.6/site-packages"
+      # run tests!
+      - run:
+          name: run tests
+          command: |
+            . venv/bin/activate
+            python3 -m unittest discover src/
+      - store_artifacts:
+          path: test-reports
+          destination: test-reports
