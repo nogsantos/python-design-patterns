@@ -2,11 +2,9 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/src
     docker:
       - image: circleci/python:3.6.4
-
-    working_directory: ~/src
-
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin
@@ -14,9 +12,9 @@ jobs:
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
-        command: |  # use pipenv to install dependencies
-          sudo pip install pipenv
-          pipenv install
+          command: |  # use pipenv to install dependencies
+            sudo pip install pipenv
+            pipenv install
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
           paths:
